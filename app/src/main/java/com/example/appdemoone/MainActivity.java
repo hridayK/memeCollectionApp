@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.VoiceInteractor;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import java.lang.invoke.MethodHandle;
 
 public class MainActivity extends AppCompatActivity {
 
+    private String imgurl;
     private ImageView imgv;
     private ProgressBar pb;
 
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             pb.setVisibility(View.VISIBLE);
                             String img = response.getString("url");
+                            imgurl = img;
                             Glide.with(MainActivity.this).load(img).listener(new RequestListener<Drawable>() {
                                 @Override
                                 public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -89,7 +92,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void shareMeme(View view) {
-
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,"Check out this reddit meme ... \n"+imgurl);
+        startActivity(Intent.createChooser(intent,"Share using ..."));
     }
 
     public void nextMeme(View view) {
