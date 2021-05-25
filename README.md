@@ -1,2 +1,2 @@
 # memeCollectionApp
-app uses and API to view and share memes from reddit
+app uses an API to view and share memes from reddit
